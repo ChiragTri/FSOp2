@@ -1,11 +1,25 @@
 // Course component 
 
+const Courses = ({ courses }) => {
+  return(
+    <div>
+      <h1>
+        Web development curriculum
+      </h1>
+      {courses.map(x =>
+        <Course key={x.id} course={x} />
+      )}
+    </div>
+  )
+}
+
+
 const Course = ({ course }) => {
   return (
     <div>
-      <h1>
+      <h2>
         {course.name}
-      </h1>
+      </h2>
       {course.parts.map(x => 
         <Part key={x.id} part={x} />  
       )}
@@ -30,4 +44,4 @@ const SumOfParts = ({ parts }) => {
   )
 }
 
-export default Course
+export default Courses
