@@ -9,6 +9,7 @@ const Course = ({ course }) => {
       {course.parts.map(x => 
         <Part key={x.id} part={x} />  
       )}
+      <SumOfParts parts={course.parts} />
     </div>
   )
 }
@@ -21,5 +22,12 @@ const Part = ({ part }) => {
   )
 }
 
+const SumOfParts = ({ parts }) => {
+  return(
+    <b>
+      total of {parts.reduce((prev, current) => prev + current.exercises, 0)} exercises
+    </b>
+  )
+}
 
 export default Course
