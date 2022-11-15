@@ -8,13 +8,20 @@ const App = () => {
     event.preventDefault()
     console.log('button clicked', event.target)
 
-    const newPerson = {
-      name: newName
+    // check to see if person already exists in phonebook
+    const found = persons.find(x => x.name === newName)
+    if (typeof(found) !== "undefined"){
+      window.alert(`${newName} is already added to phonebook`)
     }
-
-    setPersons(persons.concat(newPerson))
-    setNewName('')
-    console.log("persons", persons.concat(newPerson))
+    else{
+      const newPerson = {
+        name: newName
+      }
+    
+      setPersons(persons.concat(newPerson))
+      setNewName('')
+      console.log("persons", persons.concat(newPerson))
+    }
   }
 
   const handleInputChange = (event) => {
