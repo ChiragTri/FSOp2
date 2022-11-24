@@ -1,12 +1,17 @@
 import { useState } from 'react'
+import ShowInfo from "./components/ShowInfo"
 
 const App = () => {
   const [persons, setPersons] = useState([
-    {name:'Arto Hellas', number:'123-456-7899'}
-  ]) 
+    { name: 'Arto Hellas', number: '040-123456', id: 1 },
+    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
+    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
+    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
+  ])
   const [newInfo, setNewInfo] = useState({
     name:"", number:""
   })
+  const [filterName, setFilterName] = useState("")
 
   const addInfo = (event) => {
     event.preventDefault()
@@ -31,7 +36,7 @@ const App = () => {
     }
   }
 
-  const handleInputChange = (event) => {
+  const handleInfoInputChange = (event) => {
     console.log(event.target.value)
 
     var newName = newInfo.name
@@ -51,25 +56,50 @@ const App = () => {
     setNewInfo(newText)
   }
 
-  const ShowInfo = ({ person }) => {
-    return(
-      <>
-        {person.name} {person.number} <br></br>
-      </>
-      
-    )
+  const handleFilterInputChange = (event) => {
+    console.log(event.target.value)
+    setFilterName(event.target.value)
   }
+
+  const filteringFunction = (persons) => {
+    if (filterName.length === 0) {
+      return (persons)
+    }
+    else{
+      const shown = persons.filter(person => filteringFunctionPerson(person) === true)
+      return (shown)
+    }
+
+  }
+
+  const filteringFunctionPerson = ({ name, number, id }) => {
+    // this is an array of all the char in the search bar
+    // idk what to do with duplicate letters lol
+    const filterChars = filterName.toLowerCase().replace(/\s+/g, "").split('')
+    const formattedName = name.toLowerCase().replace(/\s+/g, "")
+    
+    // this is a conditional for if the name of the person includes the letter char
+    const personNameTest = (char) => (formattedName.includes(char))
+    
+    return (filterChars.every(personNameTest))
+  }
+  
+  const personsToShow = filteringFunction(persons)
 
   return (
     <div>
       <h2>Phonebook</h2>
+      <form>
+        <div>filter shown with<input value={filterName} onChange={handleFilterInputChange}/></div>
+      </form>
+      <h2>add a new</h2>
       <form onSubmit={addInfo}>
-        <div>name: <input id="name" value={newInfo.name} onChange={handleInputChange} placeholder="Enter new name" /></div>
-        <div>number: <input id="number" value={newInfo.number} onChange={handleInputChange} placeholder="Enter number" /></div>
+        <div>name: <input id="name" value={newInfo.name} onChange={handleInfoInputChange} placeholder="Enter new name" /></div>
+        <div>number: <input id="number" value={newInfo.number} onChange={handleInfoInputChange} placeholder="Enter number" /></div>
         <div><button type="submit">add</button></div>
       </form>
       <h2>Numbers</h2>
-      {persons.map(x => 
+      {personsToShow.map(x => 
         <ShowInfo key={x.name} person={x} />  
       )}
     </div>
