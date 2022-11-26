@@ -74,14 +74,18 @@ const App = () => {
 
   const filteringFunctionPerson = ({ name, number, id }) => {
     // this is an array of all the char in the search bar
-    // idk what to do with duplicate letters lol
+    // TODO: duplicate letters
     const filterChars = filterName.toLowerCase().replace(/\s+/g, "").split('')
     const formattedName = name.toLowerCase().replace(/\s+/g, "")
     
-    // this is a conditional for if the name of the person includes the letter char
+    // returns true if char is incluided in name
     const personNameTest = (char) => (formattedName.includes(char))
     
-    return (filterChars.every(personNameTest))
+    // iterates through every char (value) in filterChars (array) to check if x char is in name
+    const filteredPerson = filterChars.every(personNameTest)
+
+    // returns true if all chars in filter search in name
+    return (filteredPerson)
   }
   
   const personsToShow = filteringFunction(persons)
@@ -90,7 +94,7 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
       <form>
-        <div>filter shown with<input value={filterName} onChange={handleFilterInputChange}/></div>
+        <div>filter shown with: <input value={filterName} onChange={handleFilterInputChange}/></div>
       </form>
       <h2>add a new</h2>
       <form onSubmit={addInfo}>
