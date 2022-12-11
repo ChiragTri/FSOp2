@@ -65,7 +65,7 @@ const App = () => {
         <>find countries: <input value={filter} onChange={handleInputChange}/></>
       </form>
       <br/>
-      <ContentDisplayed filter={filter} countries={filteredCountries}/>
+      <ContentDisplayed filter={filter} countries={filteredCountries} setFilter={setFilter}/>
     </div>
   )
 }

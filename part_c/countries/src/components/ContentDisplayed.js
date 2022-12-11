@@ -6,7 +6,7 @@ import ShowCountryInfo from "./ShowCountryInfo"
 import {many, none, noMatch} from "./Misc"
 
 // determines what content will be rendered
-const CountriesDisplayed = ({filter, countries}) => {
+const CountriesDisplayed = ({filter, countries, setFilter}) => {
 
   // if nothing is entered in filter form
   if (filter.length === 0) {
@@ -23,7 +23,7 @@ const CountriesDisplayed = ({filter, countries}) => {
   else if (countries.length <= 10 && countries.length > 0) {
     return(
       countries.map(country => 
-        <ShowCountries key={country.name.common} country={country} />
+        <ShowCountries key={country.name.common} country={country} setFilter={setFilter}/>
       )
     )
   }

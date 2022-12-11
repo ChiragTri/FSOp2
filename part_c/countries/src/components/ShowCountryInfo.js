@@ -1,9 +1,6 @@
 // Show Country Info component 
 // shows inforrmation about specific country
 
-
-// reference: { name:{common}, capital, area, languages, flags:{png}}
-
 const CountryInfo = ({ country }) => {
   return(
     <>
