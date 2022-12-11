@@ -1,6 +1,8 @@
 // Show Country Info component 
 // shows inforrmation about specific country
 
+import Weather from "./Weather"
+
 const CountryInfo = ({ country }) => {
   return(
     <>
@@ -16,6 +18,7 @@ const CountryInfo = ({ country }) => {
         )}
       </ul>
       <img src={country.flags.png} alt={`flag of ${country.name.common}`}/>
+      <Weather country={country}/>
     </>
   )
 }

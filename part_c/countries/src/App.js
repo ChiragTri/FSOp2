@@ -1,8 +1,10 @@
+// main App
+
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 // components
-import ContentDisplayed from "./components/ContentDisplayed"
+import Content from "./components/ContentDisplayed"
 
 const App = () => {
   const [countries, setCountries] = useState([])
@@ -10,11 +12,11 @@ const App = () => {
   const [filteredCountries, setFilteredCountries] = useState([])
 
   const hook = () => {
-    console.log('effect')
+    console.log('country - effect')
     axios
       .get('https://restcountries.com/v3.1/all')
       .then(response => {
-        console.log('promise fulfilled')
+        console.log('country - promise fulfilled')
         const countryData = response.data
         setCountries(countryData)
         setFilteredCountries(countryData)
@@ -55,9 +57,9 @@ const App = () => {
 
   // logs changes to countries
   useEffect(() => {
-    console.log('logCountryHook - current countries: ', countries.length)
-    console.log('logCountryHook - supposed filtered countries: ', filteredCountries.length)
-  }, [filteredCountries]) // triggers when filter changes
+    console.log('current countries: ', countries.length)
+    console.log('supposed filtered countries: ', filteredCountries.length)
+  }, [filteredCountries]) // triggers when filteredCountries changes
 
   return (
     <div>
@@ -65,7 +67,7 @@ const App = () => {
         <>find countries: <input value={filter} onChange={handleInputChange}/></>
       </form>
       <br/>
-      <ContentDisplayed filter={filter} countries={filteredCountries} setFilter={setFilter}/>
+      <Content filter={filter} countries={filteredCountries} setFilter={setFilter}/>
     </div>
   )
 }
